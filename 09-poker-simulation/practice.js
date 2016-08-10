@@ -1,22 +1,46 @@
 var suits = ["clubs", "diamonds", "hearts", "spades"];
 var ranks = ["two", "three", "four", "five", "six", "seven", "eight",
              "nine", "ten", "jack", "queen", "king", "ace"];
+			 
+var checkCertainSuit = function (card,suit){
+	if(card['suit'] === suit){
+		return true;
+	}
+	return false;
+};
 
 // return true if the input is a suit, false otherwise.
-var isSuit = function () {
+var isSuit = function (input) {
+	return suits.some(function(arrVal) {
+        return input === arrVal;
+    })
 };
 
 // return true if the input is a rank, false otherwise.
-var isRank = function () {
+var isRank = function (input) {
+		return ranks.some(function(arrVal) {
+        return input === arrVal;
+    })
 };
 
 // return true if the input is a card object, false otherwise.
-var isCard = function () {
+var isCard = function (card) {
+	var keys = Object.keys(card);
+	if(keys.length > 1 && keys[0] === 'suit' && keys[1] === 'rank' && isSuit(card['suit']) && isRank(card['rank']) ){
+		return true;
+	}
+	return false;
 };
 
 // return true if the input is a deck of cards (an array of 52 cards
 // with no duplicates)
-var isDeck = function () {
+var isDeck = function (deck) {
+	if(deck.length < 52){
+		return false;
+	}
+	if(!deck.every(isCard)){
+		return false;
+	}
 };
 
 // construct a deck of 52 cards that will pass the isDeck method
